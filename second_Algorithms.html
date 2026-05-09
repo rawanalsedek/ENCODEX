@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENCODEX - Algorithms</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+
+    <div class="logo">
+        <i class="fa-solid fa-lock logo-icon"></i>
+        EN<span>CODEX</span>
+    </div>
+
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="frist_en_de.html">Encryption & Decryption Tool</a></li>
+        <li><a href="third_About.html">About</a></li>
+    </ul>
+
+</nav>
+
+<!-- ================= HEADER ================= -->
+<section class="algo-header">
+
+    <h1>Explore Cryptography Algorithms</h1>
+
+    <p>
+        Learn how different encryption algorithms work through explanations
+        and interactive examples.
+    </p>
+
+</section>
+
+<!-- ================= SELECTOR ================= -->
+<section class="selector-section">
+
+    <div class="selector-box">
+
+        <label>Choose Algorithm</label>
+
+        <select id="algorithmSelector">
+          <option value="caesar">Caesar Cipher</option>
+          <option value="vigenere">Vigenere Cipher</option>
+          <option value="rsa">RSA Cipher</option>
+          <option value="hash">Hash Function</option>
+          <option value="rotator">Rotator Cipher</option>
+          <option value="substitution">Substitution Cipher</option>
+          <option value="affine">Affine Cipher</option>
+          <option value="aes">AES</option>
+          <option value="railfence">Rail Fence Cipher</option>
+          <option value="diffie">Diffie-Hellman</option>
+          <option value="columnar">Columnar Transposition</option>
+          <option value="hill">Hill Cipher</option>
+          <option value="des">DES</option>
+          <option value="otp">One-Time Pad (OTP)</option>
+        </select>
+
+    </div>
+
+</section>
+
+<!-- ================= DYNAMIC CONTENT ================= -->
+<section class="dynamic-section">
+
+    <div class="dynamic-card">
+
+        <div id="algorithmContent"></div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <p>
+        © 2026 Cryptography Visualization Project.
+        Supervised by Prof. Wael Abd-Elqader Awad
+    </p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="particles-config.js"></script>
+<script src="algorithms.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENCODEX</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji.css/dist/emoji.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <nav class="navbar">
+       <div class="logo">
+        <i class="fa-solid fa-lock logo-icon"></i>
+         EN<span>CODEX</span>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="second_Algorithms.html">Algorithms</a></li>
+            <li><a href="third_About.html">About</a></li>
+        </ul>
+    </nav>
+
+   <main class="tool-wrapper">
+
+    <!-- Section 1: Title -->
+    <div class="tool-header" data-aos="fade-up">
+        <h1>Encryption & Decryption Tool 🔐</h1>
+        <p>Encrypt and decrypt your text using different algorithms.</p>
+        <p class="tool-desc">
+    This tool allows you to encrypt and decrypt text using multiple cryptographic algorithms. 
+    Choose an algorithm, enter a key, and get instant secure results.</p>
+    </div>
+
+    <!-- Tool Card -->
+    <div class="tool-container" data-aos="zoom-in">
+        <div class="tool-card-glass">
+
+            <!-- Section 2: Input -->
+            <div class="input-group">
+                <label>Input Text</label>
+                <textarea id="userInput" placeholder="Enter your text here..."></textarea>
+            </div>
+
+            <!-- Section 3: Algorithm -->
+            <div class="controls">
+                <div class="control-item">
+                    <label>Choose Algorithm</label>
+                    <select id="algoSelect" size="1">
+                        <option value="caesar">Caesar Cipher</option>
+                        <option value="vigenere">Vigenere Cipher</option>
+                        <option value="rsa">RSA Cipher</option>
+                        <option value="hash">Hash Function</option>
+                        <option value="rotator">Rotator Cipher</option>
+                        <option value="substitution">Substitution Cipher</option>
+                        <option value="affine">Affine Cipher</option>
+                        <option value="aes">AES</option>
+                        <option value="railfence">Rail Fence Cipher</option>
+                        <option value="diffie">Diffie-Hellman</option>
+                        <option value="columnar">Columnar Transposition</option>
+                        <option value="hill">Hill Cipher</option>
+                        <option value="des">DES</option>
+                        <option value="otp">One-Time Pad (OTP)</option>
+                    </select>
+                </div>
+                <div class="control-item">
+                    <label>Key</label>
+                    <input type="text" id="keyInput" placeholder="Enter key...">
+                    <small id="keyHint" style="color: gray;"></small>
+                </div>
+            </div>
+            <!-- Buttons -->
+            <div class="action-btns">
+                <button onclick="handleEncrypt()" class="btn-primary">Encrypt</button>
+                <button onclick="handleDecrypt()" class="btn-secondary">Decrypt</button>
+                <button onclick="swapText()" class="btn-secondary">Swap</button>
+            </div>
+
+            <!-- Section 5: Result -->
+            <div class="result-group">
+                <label>Result</label>
+                <div class="result-box">
+                    <p id="resultText" style="color: gray;">
+                        Your result will appear here...</p>
+                </div>
+                <button onclick="copyText()" class="btn-copy">Copy Result</button>
+            </div>
+
+        </div>
+    </div>
+</main>
+    <footer class="footer">
+    <p>© 2026 Cryptography Visualization Project. Supervised by Prof. Wael Abd-Elqader Awad</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="particles-config.js"></script>
+    <script src="logic.js"></script> 
+</body>
+</html>
