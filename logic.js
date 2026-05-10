@@ -41,6 +41,25 @@ function caesarDecrypt(text, key) {
 // ==========================
 // Substitution Cipher
 // ==========================
+function createSubstitutionMap(key, reverse = false) {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    key = key.toUpperCase().replace(/[^A-Z]/g, "");
+
+    const map = {};
+
+    if (!reverse) {
+        for (let i = 0; i < alphabet.length; i++) {
+            map[alphabet[i]] = key[i];
+        }
+    } else {
+        for (let i = 0; i < alphabet.length; i++) {
+            map[key[i]] = alphabet[i];
+        }
+    }
+
+    return map;
+}
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -78,10 +97,11 @@ function substitutionEncrypt(text, key) {
 
     key = key.toUpperCase();
 
-    // Check key validity
     if (!validateSubstitutionKey(key)) {
         return "Invalid Key! Key must contain 26 unique letters.";
     }
+
+    const map = createSubstitutionMap(key);
 
     let result = "";
 
@@ -91,21 +111,13 @@ function substitutionEncrypt(text, key) {
 
         if (alphabet.includes(upperChar)) {
 
-            let index = alphabet.indexOf(upperChar);
+            let encryptedChar = map[upperChar];
 
-            let encryptedChar = key[index];
-            if (char === char.toLowerCase()) {
-
-                result += encryptedChar.toLowerCase();
-
-            } else {
-
-                result += encryptedChar;
-            }
+            result += (char === char.toLowerCase())
+                ? encryptedChar.toLowerCase()
+                : encryptedChar;
 
         } else {
-
-        
             result += char;
         }
     }
@@ -121,10 +133,11 @@ function substitutionDecrypt(text, key) {
 
     key = key.toUpperCase();
 
-    // Check key validity
     if (!validateSubstitutionKey(key)) {
         return "Invalid Key! Key must contain 26 unique letters.";
     }
+
+    const map = createSubstitutionMap(key, true);
 
     let result = "";
 
@@ -132,23 +145,15 @@ function substitutionDecrypt(text, key) {
 
         let upperChar = char.toUpperCase();
 
-        if (key.includes(upperChar)) {
+        if (alphabet.includes(upperChar)) {
 
-            let index = key.indexOf(upperChar);
+            let decryptedChar = map[upperChar];
 
-            let decryptedChar = alphabet[index];
-
-            if (char === char.toLowerCase()) {
-
-                result += decryptedChar.toLowerCase();
-
-            } else {
-
-                result += decryptedChar;
-            }
+            result += (char === char.toLowerCase())
+                ? decryptedChar.toLowerCase()
+                : decryptedChar;
 
         } else {
-
             result += char;
         }
     }
@@ -240,61 +245,135 @@ function copyText() {
 function toggleMenu() {
     document.querySelector(".nav-links").classList.toggle("active");
 }
+// ==========================
+// Elements
+// ==========================
+
 const algoSelect = document.getElementById("algoSelect");
 const keyHint = document.getElementById("keyHint");
+const generateBtn = document.getElementById("generateKeyBtn");
+const keyInput = document.getElementById("keyInput");
 
-algoSelect.addEventListener("change", () => {
+// ==========================
+// Update UI based on algorithm
+// ==========================
+
+function updateKeyUI() {
+
+    if (!algoSelect) return;
+
     const algo = algoSelect.value;
+
+    // ==========================
+    // Show / Hide Generate Button
+    // ==========================
+
+    if (algo === "substitution") {
+        generateBtn.style.display = "block";
+    } else {
+        generateBtn.style.display = "none";
+    }
+
+    // ==========================
+    // Key Hint Messages
+    // ==========================
 
     if (algo === "caesar") {
         keyHint.innerText = "Enter a number (e.g., 3)";
-    } 
+    }
+
     else if (algo === "vigenere") {
         keyHint.innerText = "Enter a word (e.g., KEY)";
-    } 
+    }
+
     else if (algo === "affine") {
         keyHint.innerText = "Enter two numbers (a, b)";
-    } 
+    }
+
     else if (algo === "railfence") {
         keyHint.innerText = "Enter number of rails (e.g., 3)";
-    } 
+    }
+
     else if (algo === "columnar") {
         keyHint.innerText = "Enter keyword (e.g., SECRET)";
-    } 
+    }
+
     else if (algo === "substitution") {
-        keyHint.innerText = "Enter 26-letter key mapping";
-    } 
+        keyHint.innerText =
+            "Key must contain exactly 26 unique English letters";
+    }
+
     else if (algo === "hill") {
         keyHint.innerText = "Enter matrix key (e.g., 2x2)";
-    } 
+    }
+
     else if (algo === "rotator") {
         keyHint.innerText = "Enter shift value";
-    } 
+    }
+
     else if (algo === "otp") {
-        keyHint.innerText = "Key must be same length as text";
-    } 
+        keyHint.innerText =
+            "Key must be same length as text";
+    }
+
     else if (algo === "hash") {
         keyHint.innerText = "No key required";
-    } 
+    }
+
     else if (algo === "rsa") {
-        keyHint.innerText = "Public/Private key (demo only)";
-    } 
+        keyHint.innerText =
+            "Public/Private key (demo only)";
+    }
+
     else if (algo === "aes" || algo === "des") {
-        keyHint.innerText = "Complex key (demo only)";
-    } 
+        keyHint.innerText =
+            "Complex key (demo only)";
+    }
+
     else if (algo === "diffie") {
-        keyHint.innerText = "Key exchange algorithm (no direct input)";
-    } 
+        keyHint.innerText =
+            "Key exchange algorithm";
+    }
+
     else {
         keyHint.innerText = "Enter appropriate key";
     }
-});
-function swapText() {
-    const input = document.getElementById("userInput");
-    const result = document.getElementById("resultText");
-
-    const temp = input.value;
-    input.value = result.innerText;
-    result.innerText = temp;
 }
 
+// ==========================
+// Run on Page Load
+// ==========================
+
+if (algoSelect) {
+
+    updateKeyUI();
+
+    algoSelect.addEventListener("change", updateKeyUI);
+}
+
+// ==========================
+// Generate Random Substitution Key
+// ==========================
+
+if (generateBtn) {
+
+    generateBtn.addEventListener("click", () => {
+
+        const alphabet =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+        // Shuffle letters
+        for (let i = alphabet.length - 1; i > 0; i--) {
+
+            const j = Math.floor(
+                Math.random() * (i + 1)
+            );
+
+            [alphabet[i], alphabet[j]] =
+            [alphabet[j], alphabet[i]];
+        }
+
+        // Put generated key inside input
+        keyInput.value = alphabet.join("");
+    });
+}

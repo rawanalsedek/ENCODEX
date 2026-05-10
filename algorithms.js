@@ -130,40 +130,191 @@ function renderAlgorithm(algo) {
         <h3>Security Note</h3>
         <p>${data.security}</p>
     </div>
-
-
     <div class="content-section">
 
-        <h3>Interactive Step Visualizer</h3>
+    <h3>Step-by-Step Encryption Example</h3>
 
-        <div class="visualizer">
+    <div class="crypto-flow">
 
-            ${data.steps.map(step => `
-                <div class="step-box">${step}</div>
-            `).join("")}
+        <div class="crypto-step reveal-step">
+            <div class="step-title">Step 1</div>
+            <div class="step-content">
+                Plain Text = HELLO
+            </div>
+        </div>
 
+         <div class="arrow">↓</div>
+
+        <div class="crypto-step reveal-step">
+
+    <div class="step-title">
+        Step 2 — Substitution Key
+    </div>
+
+    <div class="step-content">
+
+        <strong>Key Used:</strong>
+        <br><br>
+
+        QWERTYUIOPASDFGHJKLZXCVBNM
+
+        <br><br><br>
+
+        <strong>Letter Mapping:</strong>
+
+        <br><br>
+
+        ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+        <br>
+
+        ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+        <br>
+
+        QWERTYUIOPASDFGHJKLZXCVBNM
+        </div>
+    </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="crypto-step">
+            <div class="step-content">
+                H → I
+            </div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="crypto-step reveal-step">
+            <div class="step-content">
+                E → T
+            </div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="crypto-step reveal-step">
+            <div class="step-content">
+                L → S
+            </div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="crypto-step reveal-step">
+            <div class="step-content">
+                O → G
+            </div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="crypto-step final-step reveal-step">
+            <div class="step-title">Encrypted Result</div>
+            <div class="step-content">
+                ITSSG
+            </div>
         </div>
 
     </div>
 
+</div>
 
-    <div class="content-section">
 
-        <h3>Interactive Demo</h3>
 
-        <div class="demo-box">
-            <div class="demo-row">
-                <span>Input:</span> HELLO
-            </div>
+<div class="content-section">
 
-            <div class="demo-row">
-                <span>Output:</span>
-                ${data.steps[data.steps.length - 1]}
+    <h3>Step-by-Step Decryption Example</h3>
+
+    <div class="crypto-flow">
+
+        <div class="crypto-step reveal-step">
+            <div class="step-title">Cipher Text</div>
+            <div class="step-content">
+                ITSSG
             </div>
         </div>
 
+        <div class="arrow">↓</div>
+        <div class="crypto-step reveal-step">
+
+    <div class="step-title">
+        Step 2 — Reverse Substitution Key
     </div>
 
+    <div class="step-content">
+
+        <strong>Key Used:</strong>
+
+        <br><br>
+
+        QWERTYUIOPASDFGHJKLZXCVBNM
+
+        <br><br><br>
+
+        <strong>Reverse Letter Mapping:</strong>
+
+        <br><br>
+
+        QWERTYUIOPASDFGHJKLZXCVBNM
+
+        <br>
+
+        ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+        <br>
+
+        ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+    </div>
+    </div>
+       <div class="arrow">↓</div>
+
+        <div class="crypto-step reveal-step">
+            <div class="step-content">
+                I → H
+            </div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="crypto-step reveal-step">
+            <div class="step-content">
+                T → E
+            </div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="crypto-step reveal-step">
+            <div class="step-content">
+                S → L
+            </div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="crypto-step reveal-step">
+            <div class="step-content">
+                G → O
+            </div>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="crypto-step final-step reveal-step">
+            <div class="step-title">Decrypted Result</div>
+            <div class="step-content">
+                HELLO
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+   
 
     <div class="content-section">
 
@@ -181,3 +332,6 @@ function renderAlgorithm(algo) {
 
 
 renderAlgorithm("substitution");
+selector.addEventListener("change", () => {
+    renderAlgorithm(selector.value);
+});
