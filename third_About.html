@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENCODEX</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <style>
+        body.about-page {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 15% 12%, rgba(0, 209, 255, 0.055), transparent 30%),
+                radial-gradient(circle at 85% 20%, rgba(0, 209, 255, 0.035), transparent 28%),
+                var(--bg-color);
+        }
+
+        .about-page .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 2000;
+        }
+
+        .about-shell {
+            width: min(1180px, calc(100% - 36px));
+            margin: 0 auto;
+            padding: 130px 0 90px;
+            position: relative;
+        }
+
+        .about-section {
+            margin-bottom: 88px;
+            position: relative;
+        }
+
+        .about-kicker {
+            color: var(--primary-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.82rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .about-title {
+            color: var(--text-white);
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 4.6vw, 4.4rem);
+            line-height: 1.12;
+            margin-bottom: 18px;
+            text-shadow: 0 0 26px rgba(0, 209, 255, 0.24);
+        }
+
+        .about-title span,
+        .about-section-title span {
+            color: var(--primary-color);
+        }
+
+        .about-lead {
+            max-width: 820px;
+            color: var(--text-gray);
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+
+        .about-section-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-white);
+            font-size: clamp(1.55rem, 3vw, 2.25rem);
+            margin-bottom: 24px;
+            text-shadow: 0 0 18px rgba(0, 209, 255, 0.18);
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.028);
+            border: 1px solid rgba(0, 209, 255, 0.16);
+            border-radius: 18px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 22px rgba(0, 209, 255, 0.06);
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(0, 209, 255, 0.7);
+            background: rgba(255, 255, 255, 0.045);
+            box-shadow:
+                0 0 24px rgba(0, 209, 255, 0.18),
+                0 18px 42px rgba(0, 0, 0, 0.34);
+        }
+
+        .about-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            color: #000;
+            background: var(--primary-color);
+            box-shadow: 0 0 22px rgba(0, 209, 255, 0.35);
+            margin-bottom: 18px;
+            font-size: 1.2rem;
+        }
+
+        .about-card h3 {
+            color: var(--text-white);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+        }
+
+        .about-card p,
+        .about-card li {
+            color: var(--text-gray);
+            line-height: 1.8;
+            font-size: 0.96rem;
+        }
+
+        .about-overview-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .about-overview-points {
+            display: grid;
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .about-point {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            color: var(--text-gray);
+            line-height: 1.75;
+        }
+
+        .about-point i {
+            color: var(--primary-color);
+            margin-top: 5px;
+        }
+
+        .about-orbit {
+            min-height: 340px;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .about-orbit::before,
+        .about-orbit::after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(0, 209, 255, 0.18);
+            border-radius: 50%;
+            animation: aboutSpin 18s linear infinite;
+        }
+
+        .about-orbit::before {
+            width: 260px;
+            height: 260px;
+        }
+
+        .about-orbit::after {
+            width: 190px;
+            height: 190px;
+            animation-direction: reverse;
+        }
+
+        .about-core {
+            width: 126px;
+            height: 126px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: var(--primary-color);
+            font-size: 2.8rem;
+            background: rgba(0, 209, 255, 0.08);
+            border: 1px solid rgba(0, 209, 255, 0.35);
+            box-shadow: 0 0 48px rgba(0, 209, 255, 0.2);
+            z-index: 1;
+            animation: aboutFloat 4s ease-in-out infinite;
+        }
+
+        .about-floating-icon {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 209, 255, 0.2);
+            animation: aboutFloat 5s ease-in-out infinite;
+        }
+
+        .about-floating-icon:nth-child(2) { top: 54px; left: 58px; }
+        .about-floating-icon:nth-child(3) { right: 52px; top: 82px; animation-delay: 0.8s; }
+        .about-floating-icon:nth-child(4) { bottom: 58px; left: 82px; animation-delay: 1.2s; }
+        .about-floating-icon:nth-child(5) { right: 78px; bottom: 72px; animation-delay: 1.8s; }
+
+        .about-stats-grid,
+        .about-features-grid,
+        .about-tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .about-stat {
+            text-align: center;
+            min-height: 160px;
+        }
+
+        .about-stat strong {
+            display: block;
+            color: var(--primary-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: 10px;
+        }
+
+        .about-features-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .about-flow {
+            display: grid;
+            grid-template-columns: minmax(130px, 1fr) auto minmax(130px, 1fr) auto minmax(130px, 1fr) auto minmax(130px, 1fr) auto minmax(130px, 1fr);
+            gap: 14px;
+            align-items: center;
+        }
+
+        .about-flow-step {
+            min-height: 160px;
+            text-align: center;
+            position: relative;
+        }
+
+        .about-flow-step .about-icon {
+            margin: 0 auto 16px;
+        }
+
+        .about-flow-arrow {
+            display: block;
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            animation: aboutArrowPulse 1.4s ease-in-out infinite;
+        }
+
+        .about-categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .about-category-list {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .about-category-list li {
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: rgba(0, 209, 255, 0.055);
+            border: 1px solid rgba(0, 209, 255, 0.11);
+        }
+
+        .about-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .about-tag {
+            padding: 12px 16px;
+            border-radius: 999px;
+            color: var(--text-white);
+            background: rgba(255, 255, 255, 0.045);
+            border: 1px solid rgba(0, 209, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .about-tag:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 209, 255, 0.75);
+            box-shadow: 0 0 22px rgba(0, 209, 255, 0.16);
+        }
+
+        .about-tech-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .about-thanks {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .about-supervisor {
+            text-align: center;
+        }
+
+        .about-supervisor img {
+            width: 155px;
+            height: 155px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 32px rgba(0, 209, 255, 0.28);
+            margin-bottom: 18px;
+        }
+
+        .about-team-mini {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .about-team-mini .about-card {
+            padding: 16px;
+            text-align: center;
+        }
+
+        .about-reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .about-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes aboutSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes aboutFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes aboutArrowPulse {
+            0%, 100% { transform: translateX(0); opacity: 0.5; }
+            50% { transform: translateX(8px); opacity: 1; }
+        }
+
+        @media (max-width: 1020px) {
+            .about-overview-grid,
+            .about-thanks {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats-grid,
+            .about-categories-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .about-features-grid,
+            .about-tech-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .about-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .about-flow-arrow {
+                text-align: center;
+            }
+
+            .about-flow-arrow i {
+                transform: rotate(90deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-shell {
+                width: min(100% - 24px, 1180px);
+                padding-top: 112px;
+            }
+
+            .about-page .nav-links {
+                display: none;
+                position: absolute;
+                top: 72px;
+                right: 16px;
+                left: 16px;
+                flex-direction: column;
+                gap: 12px;
+                padding: 18px;
+                background: rgba(11, 14, 20, 0.95);
+                border: 1px solid rgba(0, 209, 255, 0.22);
+                border-radius: 16px;
+                backdrop-filter: blur(16px);
+            }
+
+            .about-page .nav-links.active {
+                display: flex;
+            }
+
+            .about-page .nav-links li a {
+                margin: 0;
+            }
+
+            .about-page .menu-toggle {
+                display: block;
+            }
+
+            .about-stats-grid,
+            .about-features-grid,
+            .about-categories-grid,
+            .about-tech-grid,
+            .about-team-mini {
+                grid-template-columns: 1fr;
+            }
+
+            .about-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="about-page">
+
+<div id="particles-js"></div>
+
+<nav class="navbar">
+    <div class="logo">
+        <i class="fa-solid fa-lock logo-icon"></i>
+        EN<span>CODEX</span>
+    </div>
+
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="frist_en_de.html">Encryption & Decryption Tool</a></li>
+        <li><a href="second_Algorithms.html">Algorithms</a></li>
+        <li><a href="third_About.html" class="active">About</a></li>
+    </ul>
+</nav>
+
+<main class="about-shell">
+    <section class="about-section about-overview-grid about-reveal">
+        <div>
+            <div class="about-kicker">About the platform</div>
+            <h1 class="about-title">Cryptography System <span>Overview</span></h1>
+            <p class="about-lead">
+                ENCODEX is an educational cryptography platform designed to help learners explore classical and modern
+                encryption methods through real-time tools, mathematical explanations, and structured step-by-step examples.
+            </p>
+
+            <div class="about-overview-points">
+                <div class="about-point">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Supports classical ciphers, modern encryption, hashing, key exchange, and block cipher concepts.</span>
+                </div>
+                <div class="about-point">
+                    <i class="fa-solid fa-square-root-variable"></i>
+                    <span>Turns cryptographic math into readable examples with formulas, matrices, XOR steps, and final results.</span>
+                </div>
+                <div class="about-point">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Combines live encryption and decryption with guided learning cards for each algorithm.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-card about-orbit">
+            <div class="about-core"><i class="fa-solid fa-fingerprint"></i></div>
+            <div class="about-floating-icon"><i class="fa-solid fa-key"></i></div>
+            <div class="about-floating-icon"><i class="fa-solid fa-code"></i></div>
+            <div class="about-floating-icon"><i class="fa-solid fa-lock"></i></div>
+            <div class="about-floating-icon"><i class="fa-solid fa-diagram-project"></i></div>
+        </div>
+    </section>
+
+    <section class="about-section about-reveal">
+        <div class="about-kicker">Project scale</div>
+        <h2 class="about-section-title">Learning <span>Statistics</span></h2>
+        <div class="about-stats-grid">
+            <div class="about-card about-stat">
+                <strong>16</strong>
+                <p>Algorithms</p>
+            </div>
+            <div class="about-card about-stat">
+                <strong>C + M</strong>
+                <p>Classical + Modern Cryptography</p>
+            </div>
+            <div class="about-card about-stat">
+                <strong>Live</strong>
+                <p>Real-Time Encryption & Decryption</p>
+            </div>
+            <div class="about-card about-stat">
+                <strong>Step</strong>
+                <p>Step-by-Step Learning System</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section about-reveal">
+        <div class="about-kicker">Capabilities</div>
+        <h2 class="about-section-title">Platform <span>Features</span></h2>
+        <div class="about-features-grid">
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
+                <h3>Real-Time Encryption</h3>
+                <p>Encrypt and decrypt input instantly using the selected algorithm and matching key rules.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-book-open"></i></div>
+                <h3>Detailed Algorithm Explanations</h3>
+                <p>Each algorithm includes definitions, rules, security notes, and detailed worked examples.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                <h3>Mathematical Visualization</h3>
+                <p>Formulas, matrices, XOR operations, modular arithmetic, and intermediate states are shown clearly.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h3>Interactive Learning</h3>
+                <p>The system is built for students who want to learn by trying, comparing, and inspecting outputs.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-window-restore"></i></div>
+                <h3>Secure UI Experience</h3>
+                <p>A focused interface keeps encryption inputs, keys, and results easy to understand and use.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-network-wired"></i></div>
+                <h3>Modern Cryptography Concepts</h3>
+                <p>Includes AES, RSA, hashing, Diffie-Hellman, OTP, and modern security notes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section about-reveal">
+        <div class="about-kicker">Workflow</div>
+        <h2 class="about-section-title">Encryption <span>Flow</span></h2>
+        <div class="about-flow">
+            <div class="about-card about-flow-step">
+                <div class="about-icon"><i class="fa-solid fa-file-lines"></i></div>
+                <h3>Plaintext</h3>
+                <p>Start with readable input.</p>
+            </div>
+            <div class="about-flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="about-card about-flow-step">
+                <div class="about-icon"><i class="fa-solid fa-list-check"></i></div>
+                <h3>Choose Algorithm</h3>
+                <p>Select the cryptographic method.</p>
+            </div>
+            <div class="about-flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="about-card about-flow-step">
+                <div class="about-icon"><i class="fa-solid fa-key"></i></div>
+                <h3>Enter Key</h3>
+                <p>Use the required key format.</p>
+            </div>
+            <div class="about-flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="about-card about-flow-step">
+                <div class="about-icon"><i class="fa-solid fa-gears"></i></div>
+                <h3>Process</h3>
+                <p>Run encryption or decryption.</p>
+            </div>
+            <div class="about-flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="about-card about-flow-step">
+                <div class="about-icon"><i class="fa-solid fa-file-code"></i></div>
+                <h3>Result</h3>
+                <p>Receive ciphertext or plaintext.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section about-reveal">
+        <div class="about-kicker">Library</div>
+        <h2 class="about-section-title">Algorithm <span>Categories</span></h2>
+        <div class="about-categories-grid">
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-scroll"></i></div>
+                <h3>Classical Ciphers</h3>
+                <ul class="about-category-list">
+                    <li>Caesar</li>
+                    <li>Vigenere</li>
+                    <li>Affine</li>
+                </ul>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-lock"></i></div>
+                <h3>Modern Encryption</h3>
+                <ul class="about-category-list">
+                    <li>AES</li>
+                    <li>RSA</li>
+                    <li>Diffie-Hellman</li>
+                </ul>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-hashtag"></i></div>
+                <h3>Hash Functions</h3>
+                <ul class="about-category-list">
+                    <li>MD5</li>
+                    <li>SHA-1</li>
+                    <li>SHA-256</li>
+                </ul>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-rotate"></i></div>
+                <h3>Rotation Systems</h3>
+                <ul class="about-category-list">
+                    <li>Rotator Cipher</li>
+                    <li>Rotor Cipher</li>
+                    <li>Rail Fence</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section about-reveal">
+        <div class="about-kicker">Concept map</div>
+        <h2 class="about-section-title">Cryptography <span>Concepts</span></h2>
+        <div class="about-tags">
+            <span class="about-tag">Symmetric Encryption</span>
+            <span class="about-tag">Asymmetric Encryption</span>
+            <span class="about-tag">Hash Functions</span>
+            <span class="about-tag">Modular Arithmetic</span>
+            <span class="about-tag">Block Cipher</span>
+            <span class="about-tag">Stream Cipher</span>
+            <span class="about-tag">Substitution Cipher</span>
+            <span class="about-tag">Public Key Cryptography</span>
+        </div>
+    </section>
+
+    <section class="about-section about-reveal">
+        <div class="about-kicker">Build stack</div>
+        <h2 class="about-section-title">Technologies <span>Used</span></h2>
+        <div class="about-tech-grid">
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-brands fa-html5"></i></div>
+                <h3>HTML5</h3>
+                <p>Semantic structure for pages, sections, cards, tools, and educational content.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-brands fa-css3-alt"></i></div>
+                <h3>CSS3</h3>
+                <p>Responsive layout, glass effects, glow states, transitions, and animations.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-brands fa-js"></i></div>
+                <h3>JavaScript</h3>
+                <p>Algorithm logic, input validation, dynamic rendering, and interactive behavior.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-brands fa-bootstrap"></i></div>
+                <h3>Bootstrap Concepts</h3>
+                <p>Grid thinking, reusable UI patterns, and responsive design principles.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                <h3>Responsive Design</h3>
+                <p>Layouts adapt cleanly across desktop, tablet, and mobile screen sizes.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-icon"><i class="fa-solid fa-microchip"></i></div>
+                <h3>Cryptography Logic</h3>
+                <p>Custom implementations for classical ciphers, modern demos, hashes, and key exchange.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section about-thanks about-reveal">
+        <div class="about-card about-supervisor">
+            <img src="images_dr_wael.jpg" alt="Prof. Wael Abd-Elqader Awad">
+            <h2 class="about-section-title">Special <span>Thanks</span></h2>
+            <p>
+                Special thanks to Prof. Wael Abd-Elqader Awad for supervising and guiding this cryptography visualization project.
+            </p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-icon"><i class="fa-solid fa-users"></i></div>
+            <h3>Project Team</h3>
+            <p>
+                Built with care as an educational experience for students learning cryptography step by step.
+            </p>
+            <div class="about-team-mini">
+                <div class="about-card">Nada Elhenawy</div>
+                <div class="about-card">Rawan Alsedek</div>
+                <div class="about-card">Reham Sheta</div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <p>© 2026 Cryptography Visualization Project. Supervised by Prof. Wael Abd-Elqader Awad</p>
+</footer>
+
+<button class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="particles-config.js"></script>
+<script>
+    function toggleMenu() {
+        const navLinks = document.querySelector(".nav-links");
+        if (navLinks) navLinks.classList.toggle("active");
+    }
+
+    const revealItems = document.querySelectorAll(".about-reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.16 });
+
+    revealItems.forEach((item, index) => {
+        item.style.transitionDelay = `${Math.min(index * 0.08, 0.35)}s`;
+        revealObserver.observe(item);
+    });
+
+    const backToTopBtn = document.querySelector(".back-to-top");
+    if (backToTopBtn) {
+        const toggleBackToTop = () => {
+            backToTopBtn.classList.toggle("is-visible", window.scrollY > 420);
+        };
+
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        window.addEventListener("scroll", toggleBackToTop, { passive: true });
+        toggleBackToTop();
+    }
+</script>
+</body>
+</html>

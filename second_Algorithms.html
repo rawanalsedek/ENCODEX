@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,6 +28,7 @@
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="frist_en_de.html">Encryption & Decryption Tool</a></li>
+        <li><a href="second_Algorithms.html" class="active">Algorithms</a></li>
         <li><a href="third_About.html">About</a></li>
     </ul>
 
@@ -52,12 +53,18 @@
 
         <label>Choose Algorithm</label>
 
+        <div class="algorithm-search-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" id="algorithmSearch" placeholder="Search algorithms...">
+        </div>
+
         <select id="algorithmSelector">
           <option value="caesar">Caesar Cipher</option>
           <option value="vigenere">Vigenere Cipher</option>
           <option value="rsa">RSA Cipher</option>
           <option value="hash">Hash Function</option>
-          <option value="rotator">Rotator Cipher</option>
+          <option value="rotator">Rotor Cipher (Advanced)</option>
+          <option value="rotatorbasic">Rotator Cipher (Basic)</option>
           <option value="substitution">Substitution Cipher</option>
           <option value="affine">Affine Cipher</option>
           <option value="aes">AES</option>
@@ -65,7 +72,17 @@
           <option value="diffie">Diffie-Hellman</option>
           <option value="columnar">Columnar Transposition</option>
           <option value="hill">Hill Cipher</option>
+          <!-- ==========================
+          DES IMPLEMENTATION
+          ========================== -->
           <option value="des">DES</option>
+          <!-- ==========================
+          TRIPLE DES IMPLEMENTATION
+          ========================== -->
+          <option value="tripledes">Triple DES (3DES)</option>
+          <!-- ==========================
+          ONE-TIME PAD (OTP) IMPLEMENTATION
+          ========================== -->
           <option value="otp">One-Time Pad (OTP)</option>
         </select>
 
@@ -92,9 +109,14 @@
     </p>
 </footer>
 
+<button class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+</button>
+
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script src="particles-config.js"></script>
 <script src="algorithms.js"></script>
 
 </body>
 </html>
+

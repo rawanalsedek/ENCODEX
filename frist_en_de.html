@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,6 +21,7 @@
         <i class="fa-solid fa-bars"></i></div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
+            <li><a href="frist_en_de.html" class="active">Encryption & Decryption Tool</a></li>
             <li><a href="second_Algorithms.html">Algorithms</a></li>
             <li><a href="third_About.html">About</a></li>
         </ul>
@@ -30,7 +31,7 @@
 
     <!-- Section 1: Title -->
     <div class="tool-header" data-aos="fade-up">
-        <h1>Encryption & Decryption Tool 🔐</h1>
+        <h1>Encryption & Decryption Tool <i class="fa-solid fa-lock"></i></h1>
         <p>Encrypt and decrypt your text using different algorithms.</p>
         <p class="tool-desc">
     This tool allows you to encrypt and decrypt text using multiple cryptographic algorithms. 
@@ -48,15 +49,16 @@
             </div>
 
             <!-- Section 3: Algorithm -->
-            <div class="controls">
+            <div class="controls" id="controlsBox">
                 <div class="control-item">
                     <label>Choose Algorithm</label>
-                    <select id="algoSelect" size="1">
+                    <select id="algoSelect">
                         <option value="caesar">Caesar Cipher</option>
                         <option value="vigenere">Vigenere Cipher</option>
                         <option value="rsa">RSA Cipher</option>
                         <option value="hash">Hash Function</option>
-                        <option value="rotator">Rotator Cipher</option>
+                        <option value="rotator">Rotor Cipher (Advanced)</option>
+                        <option value="rotatorbasic">Rotator Cipher (Basic)</option>
                         <option value="substitution">Substitution Cipher</option>
                         <option value="affine">Affine Cipher</option>
                         <option value="aes">AES</option>
@@ -64,22 +66,103 @@
                         <option value="diffie">Diffie-Hellman</option>
                         <option value="columnar">Columnar Transposition</option>
                         <option value="hill">Hill Cipher</option>
+                        <!-- ==========================
+                        DES IMPLEMENTATION
+                        ========================== -->
                         <option value="des">DES</option>
+                        <!-- ==========================
+                        TRIPLE DES IMPLEMENTATION
+                        ========================== -->
+                        <option value="tripledes">Triple DES (3DES)</option>
+                        <!-- ==========================
+                        ONE-TIME PAD (OTP) IMPLEMENTATION
+                        ========================== -->
                         <option value="otp">One-Time Pad (OTP)</option>
                     </select>
                 </div>
                 <div class="control-item">
                     <label>Key</label>
-                    <input type="text" id="keyInput" placeholder="Enter key...">
-                    <button id="generateKeyBtn" class="generate-btn">
-                        Generate Key</button>
-                    <small id="keyHint" style="color: gray;"></small>
+                    <!-- normal key input -->
+                     <input type="text" id="keyInput" placeholder="Enter key...">
+                     <!-- ================= CODEX AES Encryption Controls ================= -->
+                     <select id="aesTypeSelect" style="display:none;">
+                        <option value="AES-128">AES-128</option>
+                        <option value="AES-192">AES-192</option>
+                        <option value="AES-256">AES-256</option>
+                     </select>
+                     <input type="text" id="rsaPublicKey" placeholder="Public Key (e,n)" inputmode="numeric" pattern="^\d+\s*,\s*\d+$" style="display:none;">
+                     <input type="text" id="rsaPrivateKey" placeholder="Private Key (d,n)" inputmode="numeric" pattern="^\d+\s*,\s*\d+$" style="display:none;">
+                     <!-- Generate RSA Keys -->
+                      <button id="generateRSAKeysBtn" class="generate-btn" style="display:none;"> Generate RSA Keys </button>
+                      <button id="generateKeyBtn" class="generate-btn">Generate Key</button>
+                      <button id="generateRotorKeyBtn" class="generate-btn">Generate Random Key</button>
+                      <button id="generateAffineKeyBtn" class="generate-btn" style="display:none;">Generate Affine Key</button>
+                      <button id="generateVigenereKeyBtn" class="generate-btn" style="display:none;">Generate Vigenere Key</button>
+                      <!-- ==========================
+                      COLUMNAR TRANSPOSITION CIPHER IMPLEMENTATION
+                      ========================== -->
+                      <button id="generateColumnarKeyBtn" class="generate-btn" style="display:none;">Generate Random Key</button>
+                      <!-- ================= CODEX AES Encryption Controls ================= -->
+                      <button id="generateAESKeyBtn" class="generate-btn" style="display:none;">Generate Random Key</button>
+                      <small id="aesKeyError" class="aes-error" style="display:none;"></small>
+                      <!-- ==========================
+                      DES IMPLEMENTATION
+                      ========================== -->
+                      <!-- ==========================
+                      TRIPLE DES IMPLEMENTATION
+                      ========================== -->
+                      <button id="generateDESKeyBtn" class="generate-btn" style="display:none;">Generate Random Key</button>
+                      <small id="desKeyError" class="des-error" style="display:none;"></small>
+                      <!-- ==========================
+                      ONE-TIME PAD (OTP) IMPLEMENTATION
+                      ========================== -->
+                      <button id="generateOTPKeyBtn" class="generate-btn" style="display:none;">Generate Random Key</button>
+                      <small id="otpKeyError" class="otp-error" style="display:none;"></small>
+                      <!-- ==========================
+                      HILL CIPHER IMPLEMENTATION
+                      ========================== -->
+                      <div id="hillCipherBox" class="hill-box" style="display:none;">
+                        <input type="text" id="hillMatrixSizeInput" placeholder="Matrix size (e.g., 3*3)" inputmode="numeric" pattern="^([2-9]|10)\*\1$">
+                        <select id="hillMatrixSize">
+                            <option value="2">2x2</option>
+                            <option value="3">3x3</option>
+                            <option value="4">4x4</option>
+                            <option value="5">5x5</option>
+                            <option value="6">6x6</option>
+                            <option value="7">7x7</option>
+                            <option value="8">8x8</option>
+                            <option value="9">9x9</option>
+                            <option value="10">10x10</option>
+                        </select>
+                        <div id="hillMatrixRows" class="hill-matrix-rows"></div>
+                        <button id="generateHillKeyBtn" class="generate-btn" style="display:none;">Generate Random Key</button>
+                        <small id="hillKeyError" class="hill-error" style="display:none;"></small>
+                      </div>
+                      <!-- ==========================
+                      DIFFIE-HELLMAN KEY EXCHANGE - CLEAN IMPLEMENTATION
+                      ========================== -->
+                      <div id="diffieHellmanBox" class="diffie-box" style="display:none;">
+                        <input type="number" id="dhPrimeInput" placeholder="Prime (p)" min="5" step="1" inputmode="numeric">
+                        <input type="number" id="dhGeneratorInput" placeholder="Generator (g)" min="2" step="1" inputmode="numeric">
+                        <input type="number" id="dhPrivateInput" placeholder="Private Key (a or b)" min="2" step="1" inputmode="numeric">
+                        <button id="generateDHValuesBtn" class="generate-btn" style="display:none;">Generate Random Values</button>
+                        <small id="dhKeyError" class="dh-error" style="display:none;"></small>
+                      </div>
+                      <!-- ==========================
+                      RAIL FENCE CIPHER IMPLEMENTATION
+                      ========================== -->
+                      <small id="railFenceKeyError" class="railfence-error" style="display:none;"></small>
+                      <small id="keyHint" style="color: gray;"></small>
                 </div>
             </div>
             <!-- Buttons -->
-            <div class="action-btns">
-                <button onclick="handleEncrypt()" class="btn-primary">Encrypt</button>
-                <button onclick="handleDecrypt()" class="btn-secondary">Decrypt</button>
+            <div class="action-btns" id="actionBtns">
+                <button id="encryptBtn" onclick="handleEncrypt()" class="btn-primary"> Encrypt </button>
+                <button id="decryptBtn" onclick="handleDecrypt()" class="btn-secondary"> Decrypt </button>
+                <!-- ==========================
+                DIFFIE-HELLMAN KEY EXCHANGE - CLEAN IMPLEMENTATION
+                ========================== -->
+                <button id="generateDHSharedBtn" class="btn-primary" style="display:none;">Generate Shared Secret Key</button>
             </div>
 
             <!-- Section 5: Result -->
@@ -99,8 +182,14 @@
     <p>© 2026 Cryptography Visualization Project. Supervised by Prof. Wael Abd-Elqader Awad</p>
     </footer>
 
+    <button class="back-to-top" type="button" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="particles-config.js"></script>
     <script src="logic.js"></script> 
 </body>
 </html>
+
+
